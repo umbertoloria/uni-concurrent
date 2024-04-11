@@ -1,2 +1,4 @@
-mpicc /volume/eserc1.c -o /volume/hello
-mpirun --allow-run-as-root -np 2 /volume/hello
+cd /volume
+mpicc eserc1.c -o app.o
+mpirun --allow-run-as-root -np 2 app.o
+rm app.o
