@@ -1,3 +1,5 @@
+// Sending and receiving strings
+
 #include <stdio.h>
 #include <string.h>
 #include <mpi.h>
