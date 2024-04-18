@@ -1,11 +1,8 @@
 // Personal Scatter
 
 #include <stdio.h>
-#include <string.h>
-#include <mpi.h>
-#include <unistd.h>
-#include <time.h>
 #include <stdlib.h>
+#include <mpi.h>
 #include "mycollective.c"
 
 #define N_LOCAL_VALUES 16
@@ -44,16 +41,7 @@ int main(int argc, char* argv[]) {
 			1, 2, 3, 4, 5, 6, 7, 8,
 		};
 
-		int i = 1;
-		int offset = 0;
-		while (i < size - 1 && offset < N_LOCAL_VALUES) {
-			MPI_Send(&values[offset], elems_per_process, MPI_INT, i, 0, MPI_COMM_WORLD);
-			offset += elems_per_process;
-			++i;
-		}
-		if (offset < N_LOCAL_VALUES) {
-			MPI_Send(&values[offset], elems_last_process, MPI_INT, i, 0, MPI_COMM_WORLD);
-		}
+		my_scatter_int(values, N_LOCAL_VALUES, elems_per_process, elems_last_process, 1, size - 1);
 
 	} else {
 
@@ -62,7 +50,7 @@ int main(int argc, char* argv[]) {
 			int my_size = rank == last_rank ? elems_last_process : elems_per_process;
 			int *rec = malloc(sizeof(int) * my_size);
 
-			MPI_Recv(rec, my_size, MPI_INT, 0, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+			my_recv_int(rec, my_size, 0);
 
 			printf("slave %d received: ", rank);
 			print_arr_size(rec, my_size);

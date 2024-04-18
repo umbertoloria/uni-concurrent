@@ -13,6 +13,19 @@ void my_broadcast_send_int(void *buf, int count, int size) {
 	}
 }
 
+void my_scatter_int(int *buf, int buf_count, int elems_per_process, int elems_last_process, int rank_from, int rank_to) {
+	int i = rank_from;
+	int offset = 0;
+	while (i < rank_to && offset < buf_count) {
+		MPI_Send(buf + offset, elems_per_process, MPI_INT, i, 0, MPI_COMM_WORLD);
+		offset += elems_per_process;
+		++i;
+	}
+	if (offset < buf_count) {
+		MPI_Send(buf + offset, elems_last_process, MPI_INT, i, 0, MPI_COMM_WORLD);
+	}
+}
+
 void my_recv_int(void *buf, int count, int from) {
 	MPI_Recv(buf, count, MPI_INT, from, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
 }
