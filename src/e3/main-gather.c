@@ -24,12 +24,10 @@ int main(int argc, char* argv[]) {
 		print_arr_size(values, size);
 
 		free(values);
-
 	} else {
 		int send = STATIC_NUMBER;
 
 		my_send_int(&send, 1, 0);
-
 	}
 
 	MPI_Finalize();
