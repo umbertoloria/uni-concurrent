@@ -1,5 +1,6 @@
 // Personal Broadcast
 
+#include <stdio.h>
 #include <mpi.h>
 #include "mycollective.c"
 

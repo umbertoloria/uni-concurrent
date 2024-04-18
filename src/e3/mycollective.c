@@ -9,3 +9,11 @@ void print_arr(int arr[]) {
 	}
 	printf("]\n");
 }
+
+void print_arr_size(int arr[], int max) {
+	printf("[%d", arr[0]);
+	for (int i = 1; i < max; ++i) {
+		printf(", %d", arr[i]);
+	}
+	printf("]\n");
+}

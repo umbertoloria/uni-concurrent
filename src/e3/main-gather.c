@@ -1,21 +1,11 @@
 // Personal Gather
 
 #include <stdio.h>
-#include <string.h>
 #include <mpi.h>
-#include <unistd.h>
-#include <time.h>
 #include <stdlib.h>
+#include "mycollective.c"
 
 #define STATIC_NUMBER 42
-
-void print_arr(int arr[], int max) {
-	printf("[%d", arr[0]);
-	for (int i = 1; i < max; ++i) {
-		printf(", %d", arr[i]);
-	}
-	printf("]\n");
-}
 
 int main(int argc, char* argv[]) {
 	MPI_Init(&argc, &argv);
@@ -31,7 +21,7 @@ int main(int argc, char* argv[]) {
 			MPI_Recv(&values[i], 1, MPI_INT, i, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
 		}
 		printf("master: ");
-		print_arr(values, size);
+		print_arr_size(values, size);
 		free(values);
 
 	} else {
