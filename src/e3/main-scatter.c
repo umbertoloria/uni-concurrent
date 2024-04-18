@@ -6,6 +6,7 @@
 #include <unistd.h>
 #include <time.h>
 #include <stdlib.h>
+#include "mycollective.c"
 
 #define N_VALUES 8
 #define STATIC_NUMBER 42
@@ -13,14 +14,6 @@
 int myceil(float num) {
 	int int_num = (int) num;
 	return (num - int_num) > 0 ? int_num + 1 : int_num;
-}
-
-void print_arr(int arr[], int max) {
-	printf("[%d", arr[0]);
-	for (int i = 1; i < max; ++i) {
-		printf(", %d", arr[i]);
-	}
-	printf("]\n");
 }
 
 int main(int argc, char* argv[]) {
@@ -75,7 +68,7 @@ int main(int argc, char* argv[]) {
 			MPI_Recv(rec, my_size, MPI_INT, 0, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
 
 			printf("slave %d received: ", rank);
-			print_arr(rec, my_size);
+			print_arr_size(rec, my_size);
 
 			free(rec);
 
