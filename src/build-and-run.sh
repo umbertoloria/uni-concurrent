@@ -1,4 +1,4 @@
-cd /volume/e2
+cd /volume/e3
 
 mpicc main.c -o app.o
 mpirun --allow-run-as-root -np 6 app.o
