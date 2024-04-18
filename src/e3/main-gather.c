@@ -17,16 +17,19 @@ int main(int argc, char* argv[]) {
 	if (rank == 0) {
 		int *values = malloc(sizeof(int) * size);
 		values[0] = STATIC_NUMBER;
-		for (int i = 1; i < size; ++i) {
-			MPI_Recv(&values[i], 1, MPI_INT, i, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
-		}
+
+		my_gather_recv_int(values, 1, 1, size-1);
+
 		printf("master: ");
 		print_arr_size(values, size);
+
 		free(values);
 
 	} else {
 		int send = STATIC_NUMBER;
-		MPI_Send(&send, 1, MPI_INT, 0, 0, MPI_COMM_WORLD);
+
+		my_send_int(&send, 1, 0);
+
 	}
 
 	MPI_Finalize();
