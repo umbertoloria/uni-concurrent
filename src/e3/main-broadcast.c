@@ -1,21 +1,7 @@
 // Personal Broadcast
 
-#include <stdio.h>
-#include <string.h>
 #include <mpi.h>
-#include <unistd.h>
-#include <time.h>
-#include <stdlib.h>
-
-#define N_VALUES 8
-
-void print_arr(int arr[]) {
-	printf("[%d", arr[0]);
-	for (int i = 1; i < N_VALUES; ++i) {
-		printf(", %d", arr[i]);
-	}
-	printf("]\n");
-}
+#include "mycollective.c"
 
 int main(int argc, char* argv[]) {
 	MPI_Init(&argc, &argv);
